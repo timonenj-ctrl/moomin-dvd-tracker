@@ -1,205 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Moomin DVDs — Marketplace Tracker</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moomin DVDs — Live Marketplace Tracker</title>
 
-<style>
-:root{
-  --bg:#ffffff;--panel:#fbfbfa;--text:#2f3437;--muted:#6b6f76;
-  --border:rgba(55,53,47,0.16);--pill:#f1f1ef;--link:#0b6e99;
-}
-[data-theme="dark"]{
-  --bg:#191919;--panel:#202020;--text:#f1f1ef;--muted:#b6b6b3;
-  --border:rgba(255,255,255,0.14);--pill:#2a2a2a;--link:#7cc5ff;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial;
-  background:var(--bg);color:var(--text)
-}
-a{color:var(--link);text-decoration:none}
-a:hover{text-decoration:underline}
+  <style>
+    :root{
+      --bg:#ffffff; --panel:#fbfbfa; --text:#2f3437; --muted:#6b6f76;
+      --border:rgba(55,53,47,0.16); --pill:#f1f1ef; --link:#0b6e99;
+      --callout:#ffffff; --shadow:0 1px 0 rgba(55,53,47,0.08); --code:#f7f6f3;
+    }
+    [data-theme="dark"]{
+      --bg:#191919; --panel:#202020; --text:#f1f1ef; --muted:#b6b6b3;
+      --border:rgba(255,255,255,0.14); --pill:#2a2a2a; --link:#7cc5ff;
+      --callout:#1f1f1f; --shadow:0 1px 0 rgba(255,255,255,0.08); --code:#242424;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
 
-.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
-.sidebar{
-  background:var(--panel);
-  border-right:1px solid var(--border);
-  padding:16px;
-}
-.main{padding:36px;max-width:1100px}
+    .app{display:grid; grid-template-columns: 280px 1fr; min-height:100vh}
+    .sidebar{
+      border-right:1px solid var(--border);
+      background:var(--panel);
+      padding:18px 14px 16px;
+      position:sticky; top:0; height:100vh; overflow:auto;
+    }
+    .brand{display:flex; align-items:center; gap:10px; padding:10px; border-radius:12px; margin-bottom:8px}
+    .brand .dot{width:10px;height:10px;border-radius:999px;background:var(--text);opacity:.25}
+    .brand .title{font-weight:750}
+    .controls{display:flex; gap:8px; align-items:center; padding:0 10px 12px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      background:transparent; color:var(--text);
+      padding:8px 10px; border-radius:10px; cursor:pointer;
+      font-size:14px;
+    }
+    .btn:hover{background:rgba(0,0,0,0.04)}
+    [data-theme="dark"] .btn:hover{background:rgba(255,255,255,0.06)}
 
-.brand{font-weight:800;font-size:18px;margin-bottom:12px}
+    .search{padding:0 10px 12px}
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--bg);
+      color:var(--text);
+      outline:none;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+      background:var(--code);
+      border:1px solid var(--border);
+      padding:2px 6px;
+      border-radius:8px;
+      font-size:12px;
+      color:var(--muted);
+    }
 
-.controls{display:flex;gap:8px;margin-bottom:14px}
-.btn{
-  border:1px solid var(--border);
-  background:transparent;
-  color:var(--text);
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-}
+    .nav{padding:8px 6px}
+    .nav .section{margin-top:14px;margin-bottom:8px;padding:0 8px;font-size:12px;letter-spacing:.02em;color:var(--muted);text-transform:uppercase}
+    .nav a{display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; color:var(--text)}
+    .nav a:hover{background:rgba(0,0,0,0.04); text-decoration:none}
+    [data-theme="dark"] .nav a:hover{background:rgba(255,255,255,0.06)}
+    .pill{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--pill);color:var(--muted);margin-left:auto}
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:14px;
-  margin-top:18px
-}
-.card{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px
-}
-.card h3{margin:0 0 6px}
+    .main{padding:44px 26px 70px; max-width:1120px}
+    .pageTitle{font-size:40px;font-weight:780;letter-spacing:-0.02em;margin:0 0 10px;display:flex;gap:10px;align-items:center}
+    .subtitle{color:var(--muted);margin:0 0 18px;font-size:16px}
 
-.section-title{
-  margin-top:26px;
-  font-size:20px;
-  font-weight:750
-}
-.small{color:var(--muted);font-size:13px}
-ul{margin:8px 0 0 18px}
+    .callout{
+      border:1px solid var(--border);
+      background:var(--callout);
+      border-radius:14px;
+      padding:14px 16px;
+      display:flex;
+      gap:10px;
+      box-shadow:var(--shadow);
+      margin:16px 0 22px;
+    }
+    .callout .icon{font-size:20px; line-height:1.2}
 
-@media(max-width:900px){
-  .app{grid-template-columns:1fr}
-  .sidebar{border-right:none;border-bottom:1px solid var(--border)}
-}
-</style>
+    h2{margin:26px 0 8px;font-size:20px;font-weight:740;letter-spacing:-0.01em}
+    p.note{margin:0 0 10px;color:var(--muted);font-style:italic}
+    ul{margin:10px 0 0 18px;padding:0}
+    li{margin:8px 0}
+    .meta{color:var(--muted);font-weight:650}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width:960px){
+      .app{grid-template-columns:1fr}
+      .sidebar{position:relative;height:auto}
+      .main{padding:26px 16px 60px}
+      .grid{grid-template-columns:1fr}
+    }
+    .card{border:1px solid var(--border);border-radius:14px;padding:14px 14px 12px;background:transparent}
+    .card h3{margin:0 0 6px;font-size:16px;font-weight:760}
+    .small{font-size:13px;color:var(--muted);margin:0}
+    .tagRow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+    .tag{font-size:12px;background:var(--pill);padding:2px 8px;border-radius:999px;color:var(--muted)}
+    .footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+  </style>
 </head>
 
 <body data-theme="dark">
-<div class="app">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="dot"></div>
+        <div>
+          <div class="title">Moomin DVDs</div>
+          <div style="font-size:12px;color:var(--muted)">Marketplace tracker</div>
+        </div>
+      </div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="brand">📀 Moomin DVDs</div>
+      <div class="controls">
+        <button class="btn" id="homeBtn" title="Back to country picker">🏠 Home</button>
+        <button class="btn" id="themeBtn" title="Toggle theme">🌓</button>
+        <button class="btn" id="copyLinkBtn" title="Copy link">🔗</button>
+      </div>
 
-  <div class="controls">
-    <button class="btn" id="homeBtn">🏠 Home</button>
-    <button class="btn" id="themeBtn">🌓</button>
-    <button class="btn" id="copyBtn">🔗</button>
+      <div class="search" id="searchWrap">
+        <input id="filter" type="search" placeholder="Suodata… (esim. 'Blocket', 'Tradera', 'mumin dvd')" />
+        <div style="margin-top:8px;color:var(--muted);font-size:12px">
+          Vinkki: paina <span class="kbd">/</span> ja alat kirjoittaa.
+        </div>
+      </div>
+
+      <nav class="nav" id="nav"></nav>
+    </aside>
+
+    <main class="main">
+      <h1 class="pageTitle"><span id="flag">🌍</span> <span id="pageTitle">Moomin DVDs — Country picker</span></h1>
+      <p class="subtitle" id="subtitle">Valitse maa. Maan sivulla näkyy vain sen maan linkit ja hakusanat.</p>
+
+      <!-- ✅ Näkyy vain etusivulla -->
+      <div class="grid" id="countryCards"></div>
+
+      <!-- ✅ Näkyy vain maa-sivulla -->
+      <div id="content"></div>
+
+      <div class="footer" id="footer"></div>
+    </main>
   </div>
 
-  <div id="sideNav" class="small"></div>
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-  <h1 id="title">Moomin DVDs — Marketplace Tracker</h1>
-  <p id="subtitle" class="small">
-    Choose a country to see local marketplaces and search terms.
-  </p>
-
-  <!-- COUNTRY PICKER -->
-  <div id="countryGrid" class="grid"></div>
-
-  <!-- COUNTRY CONTENT -->
-  <div id="content"></div>
-</main>
-</div>
-
 <script>
-const $ = s => document.querySelector(s);
-const grid = $("#countryGrid");
-const content = $("#content");
-const sideNav = $("#sideNav");
+(async function(){
+  const $ = (s)=>document.querySelector(s);
+  const nav = $("#nav");
+  const content = $("#content");
+  const filter = $("#filter");
+  const cards = $("#countryCards");
+  const searchWrap = $("#searchWrap");
 
-function esc(s){return (s||"").replace(/[&<>"']/g,m=>(
-  {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]
-));}
+  function esc(s){return (s??"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
-async function init(){
   const res = await fetch("./data/sources.json");
-  window.DATA = await res.json();
-  renderHome();
-}
+  const DATA = await res.json();
 
-function getCountryFromHash(){
-  const m = location.hash.match(/c=([A-Z]{2})/);
-  return m ? m[1] : null;
-}
+  function getCountryFromHash(){
+    const m = (location.hash || "").match(/c=([A-Z]{2})/);
+    return m ? m[1] : null;
+  }
 
-function renderHome(){
-  $("#title").textContent = "Moomin DVDs — Marketplace Tracker";
-  $("#subtitle").textContent = "Choose a country to see local marketplaces and search terms.";
-  content.innerHTML = "";
-  sideNav.innerHTML = "<b>Pick a country</b>";
-  grid.style.display = "grid";
+  function showHome(){
+    $("#flag").textContent = "🌍";
+    $("#pageTitle").textContent = "Moomin DVDs — Country picker";
+    $("#subtitle").textContent = "Valitse maa. Maan sivulla näkyy vain sen maan linkit ja hakusanat.";
+    content.innerHTML = "";
+    cards.style.display = "";
+    searchWrap.style.display = "none"; // ✅ ei tarvita etusivulla
+    buildHomeNav();
+    buildCards();
+    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
+  }
 
-  grid.innerHTML = DATA.countries.map(c=>`
-    <div class="card">
-      <h3>${c.flag} ${esc(c.country)}</h3>
-      <div class="small">${esc(c.language)}</div>
-      <div style="margin-top:10px">
-        <a href="#c=${c.code}">Open →</a>
+  function showCountry(code){
+    const c = DATA.countries.find(x=>x.code===code);
+    if(!c){ showHome(); return; }
+
+    $("#flag").textContent = c.flag || "🏳️";
+    $("#pageTitle").textContent = `${c.code} Moomin DVDs — ${c.country}`;
+    $("#subtitle").textContent = `Live search hub for ${c.country} (${c.language}).`;
+
+    // ✅ Tämä on se tärkein: piilota lista kaikista maista maa-sivulla
+    cards.style.display = "none";
+    searchWrap.style.display = ""; // ✅ suodatus hyödyllinen vain maa-sivulla
+
+    buildCountryNav(c);
+    buildCountryContent(c);
+    applyFilter(filter.value);
+
+    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
+  }
+
+  function buildCards(){
+    cards.innerHTML = DATA.countries.map(c => `
+      <div class="card">
+        <h3>${c.flag || "🏳️"} ${esc(c.code)} ${esc(c.country)}</h3>
+        <p class="small">${esc(c.language)}</p>
+        <div class="tagRow">
+          ${(c.local_names||[]).slice(0,3).map(n=>`<span class="tag">${esc(n)}</span>`).join("")}
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn" data-open="${c.code}">Open</button>
+        </div>
       </div>
-    </div>
-  `).join("");
-}
+    `).join("");
 
-function renderCountry(code){
-  const c = DATA.countries.find(x=>x.code===code);
-  if(!c){renderHome();return;}
+    cards.querySelectorAll("button[data-open]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const code = b.getAttribute("data-open");
+        location.hash = `c=${code}`;
+      });
+    });
+  }
 
-  grid.style.display = "none";
-  $("#title").textContent = `${c.flag} ${c.country}`;
-  $("#subtitle").textContent = `Local names, marketplaces and search links (${c.language})`;
-  sideNav.innerHTML = `<b>${c.country}</b><br><span class="small">${c.language}</span>`;
+  function buildHomeNav(){
+    nav.innerHTML = `
+      <div class="section">Countries</div>
+      ${DATA.countries.map(c=>`
+        <a href="#c=${c.code}">
+          <span>${c.flag || "🏳️"}</span>
+          <span>${esc(c.country)}</span>
+          <span class="pill">${c.sources?.reduce((n,s)=>n+((s.search_urls||[]).length),0) || 0}</span>
+        </a>
+      `).join("")}
+    `;
+  }
 
-  const grouped = {};
-  (c.sources||[]).forEach(s=>{
-    (grouped[s.type]=grouped[s.type]||[]).push(s);
+  function buildCountryNav(c){
+    nav.innerHTML = `
+      <div class="section">${esc(c.country)}</div>
+      <a href="#sec=names"><span>▸</span><span>Names & terms</span></a>
+      <a href="#sec=links"><span>▸</span><span>Live search links</span></a>
+    `;
+  }
+
+  function buildCountryContent(c){
+    const grouped = {};
+    (c.sources||[]).forEach(s=>{
+      (grouped[s.type]=grouped[s.type]||[]).push(s);
+    });
+
+    content.innerHTML = `
+      <section class="contentSection" id="sec-names">
+        <h2 id="names">Local names & search terms</h2>
+        <p class="note">Vaihtele hakusanoja (esim. Croatia: “Mumini” ja myös “Moomin”).</p>
+        <ul>
+          ${(c.local_names||[]).map(n=>`<li><span class="meta">Name:</span> ${esc(n)}</li>`).join("")}
+          ${(c.search_terms||[]).map(t=>`<li><span class="meta">Search:</span> ${esc(t)}</li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="contentSection" id="sec-links">
+        <h2 id="links">Live search links (myynnissä nyt)</h2>
+        <p class="note">Hakusivut pysyvät ajantasaisina pitkään.</p>
+        ${Object.keys(grouped).map(type=>`
+          <h2 style="margin-top:18px">${esc(type)}</h2>
+          ${(grouped[type]||[]).map(src=>`
+            <div class="card">
+              <h3>${esc(src.name)}</h3>
+              <p class="small">${esc(src.note||"")}</p>
+              <ul>
+                ${(src.search_urls||[]).map(u=>`
+                  <li><a href="${u.url}" target="_blank" rel="noopener noreferrer">${esc(u.label)}</a></li>
+                `).join("")}
+              </ul>
+            </div>
+          `).join("")}
+        `).join("")}
+      </section>
+    `;
+  }
+
+  function applyFilter(q){
+    q = (q || "").trim().toLowerCase();
+    document.querySelectorAll(".contentSection").forEach(sec=>{
+      const t = sec.textContent.toLowerCase();
+      sec.style.display = (!q || t.includes(q)) ? "" : "none";
+    });
+  }
+
+  // controls
+  $("#homeBtn").addEventListener("click", ()=>{
+    history.pushState({}, "", location.pathname);
+    showHome();
   });
 
-  content.innerHTML = `
-    <div class="section-title">Local names & search terms</div>
-    <ul>
-      ${(c.local_names||[]).map(n=>`<li>${esc(n)}</li>`).join("")}
-      ${(c.search_terms||[]).map(t=>`<li><i>${esc(t)}</i></li>`).join("")}
-    </ul>
+  $("#themeBtn").addEventListener("click", ()=>{
+    const cur = document.body.getAttribute("data-theme") || "dark";
+    const next = cur === "dark" ? "light" : "dark";
+    document.body.setAttribute("data-theme", next);
+    localStorage.setItem("moominTheme", next);
+  });
 
-    <div class="section-title">Marketplaces</div>
-    ${Object.keys(grouped).map(type=>`
-      <div class="section-title" style="font-size:16px">${esc(type)}</div>
-      ${grouped[type].map(src=>`
-        <div class="card">
-          <h3>${esc(src.name)}</h3>
-          <p class="small">${esc(src.note||"")}</p>
-          <ul>
-            ${(src.search_urls||[]).map(u=>`
-              <li><a href="${u.url}" target="_blank">${esc(u.label)}</a></li>
-            `).join("")}
-          </ul>
-        </div>
-      `).join("")}
-    `).join("")}
-  `;
-}
+  $("#copyLinkBtn").addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      $("#copyLinkBtn").textContent = "✅";
+      setTimeout(()=>$("#copyLinkBtn").textContent="🔗", 900);
+    }catch(e){
+      alert("Copy failed — copy from the address bar.");
+    }
+  });
 
-window.addEventListener("hashchange", ()=>{
-  const c = getCountryFromHash();
-  c ? renderCountry(c) : renderHome();
-});
+  filter.addEventListener("input", ()=>applyFilter(filter.value));
+  window.addEventListener("keydown",(e)=>{ if(e.key==="/" && document.activeElement!==filter){ e.preventDefault(); filter.focus(); }});
 
-$("#homeBtn").onclick = ()=>{
-  history.pushState({}, "", location.pathname);
-  renderHome();
-};
+  window.addEventListener("hashchange", ()=>{
+    const code = getCountryFromHash();
+    code ? showCountry(code) : showHome();
+  });
 
-$("#themeBtn").onclick = ()=>{
-  document.body.dataset.theme =
-    document.body.dataset.theme === "dark" ? "light" : "dark";
-};
+  // init
+  const savedTheme = localStorage.getItem("moominTheme");
+  if(savedTheme) document.body.setAttribute("data-theme", savedTheme);
 
-$("#copyBtn").onclick = async ()=>{
-  await navigator.clipboard.writeText(location.href);
-};
-
-init();
+  const code = getCountryFromHash();
+  code ? showCountry(code) : showHome();
+})();
 </script>
 </body>
 </html>
