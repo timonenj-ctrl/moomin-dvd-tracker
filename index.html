@@ -79,30 +79,13 @@
     .pageTitle{font-size:40px;font-weight:780;letter-spacing:-0.02em;margin:0 0 10px;display:flex;gap:10px;align-items:center}
     .subtitle{color:var(--muted);margin:0 0 18px;font-size:16px}
 
-    .callout{
-      border:1px solid var(--border);
-      background:var(--callout);
-      border-radius:14px;
-      padding:14px 16px;
-      display:flex;
-      gap:10px;
-      box-shadow:var(--shadow);
-      margin:16px 0 22px;
-    }
-    .callout .icon{font-size:20px; line-height:1.2}
-
     h2{margin:26px 0 8px;font-size:20px;font-weight:740;letter-spacing:-0.01em}
     p.note{margin:0 0 10px;color:var(--muted);font-style:italic}
     ul{margin:10px 0 0 18px;padding:0}
     li{margin:8px 0}
     .meta{color:var(--muted);font-weight:650}
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-      margin-top:10px;
-    }
+    .grid{display:grid;grid-template-columns: repeat(2, minmax(0, 1fr));gap:12px;margin-top:10px}
     @media (max-width:960px){
       .app{grid-template-columns:1fr}
       .sidebar{position:relative;height:auto}
@@ -115,6 +98,13 @@
     .tagRow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tag{font-size:12px;background:var(--pill);padding:2px 8px;border-radius:999px;color:var(--muted)}
     .footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+
+    /* Twemoji → notion-emoji feel */
+    img.notion-emoji{
+      width:1em;height:1em;
+      vertical-align:-0.1em;
+      margin:0 0.12em 0 0;
+    }
   </style>
 </head>
 
@@ -135,29 +125,31 @@
         <button class="btn" id="copyLinkBtn" title="Copy link">🔗</button>
       </div>
 
-      <!-- Search is useful on country pages; harmless on home too -->
-      <div class="search" id="searchWrap">
+      <div class="search">
         <input id="filter" type="search" placeholder="Suodata… (esim. 'Blocket', 'Tradera', 'mumin dvd')" />
         <div style="margin-top:8px;color:var(--muted);font-size:12px">
           Vinkki: paina <span class="kbd">/</span> ja alat kirjoittaa.
         </div>
       </div>
 
-      <!-- ✅ Countries always visible in sidebar -->
+      <!-- Countries always visible -->
       <nav class="nav" id="nav"></nav>
     </aside>
 
     <main class="main">
-      <h1 class="pageTitle"><span id="flag">🌍</span> <span id="pageTitle">Moomin DVDs — Home</span></h1>
-      <p class="subtitle" id="subtitle">Valitse maa sivupalkista tai korteista.</p>
+      <h1 class="pageTitle"><span id="flag">🌍</span> <span id="pageTitle">Moomin DVDs</span></h1>
+      <p class="subtitle" id="subtitle">Valitse maa sivupalkista.</p>
 
-      <!-- Optional: home-only grid -->
+      <!-- home-only cards (optional) -->
       <div class="grid" id="countryCards"></div>
 
       <div id="content"></div>
       <div class="footer" id="footer"></div>
     </main>
   </div>
+
+  <!-- Twemoji (renders flags reliably everywhere) -->
+  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
 
 <script>
 (async function(){
@@ -169,7 +161,6 @@
 
   function esc(s){return (s??"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
-  // Nice labels instead of raw keys
   function typeLabel(type){
     return ({
       local_classifieds: "Local classifieds",
@@ -179,6 +170,13 @@
       marketplace: "Marketplace",
       global: "Global"
     })[type] || type;
+  }
+
+  function renderEmoji(){
+    // Convert unicode emoji (flags) into <img class="notion-emoji" ...>
+    if (window.twemoji) {
+      twemoji.parse(document.body, { folder: "svg", ext: ".svg", className: "notion-emoji" });
+    }
   }
 
   const res = await fetch("./data/sources.json");
@@ -194,7 +192,7 @@
       <div class="section">Countries</div>
       ${DATA.countries.map(c=>`
         <a href="#c=${c.code}" data-c="${c.code}">
-          <span>${c.flag || "🏳️"}</span>
+          <span>${esc(c.flag || "🏳️")}</span>
           <span>${esc(c.code)} ${esc(c.country)}</span>
           <span class="pill">${c.sources?.reduce((n,s)=>n+((s.search_urls||[]).length),0) || 0}</span>
         </a>
@@ -206,12 +204,14 @@
       a.style.opacity = isActive ? "1" : "0.78";
       a.style.fontWeight = isActive ? "750" : "450";
     });
+
+    renderEmoji();
   }
 
   function buildHomeCards(){
     cards.innerHTML = DATA.countries.map(c => `
       <div class="card">
-        <h3>${c.flag || "🏳️"} ${esc(c.code)} ${esc(c.country)}</h3>
+        <h3>${esc(c.flag || "🏳️")} ${esc(c.code)} ${esc(c.country)}</h3>
         <p class="small">${esc(c.language || "")}</p>
         <div class="tagRow">
           ${(c.local_names||[]).slice(0,3).map(n=>`<span class="tag">${esc(n)}</span>`).join("")}
@@ -227,18 +227,24 @@
         location.hash = `c=${b.getAttribute("data-open")}`;
       });
     });
+
+    renderEmoji();
   }
 
   function showHome(){
     $("#flag").textContent = "🌍";
     $("#pageTitle").textContent = "Moomin DVDs — Home";
     $("#subtitle").textContent = "Valitse maa sivupalkista tai korteista.";
+
     content.innerHTML = "";
-    cards.style.display = ""; // home shows grid
+    cards.style.display = ""; // show cards on home (optional)
+
     buildSidebarCountries(null);
     buildHomeCards();
+
     $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
-    applyFilter(filter.value); // optional
+    applyFilter(filter.value);
+    renderEmoji();
   }
 
   function showCountry(code){
@@ -246,16 +252,17 @@
     if(!c){ showHome(); return; }
 
     $("#flag").textContent = c.flag || "🏳️";
-    $("#pageTitle").textContent = `${esc(c.code)} Moomin DVDs — ${esc(c.country)}`;
+    $("#pageTitle").textContent = `${c.code} Moomin DVDs — ${c.country}`;
     $("#subtitle").textContent = `Live search hub for ${c.country} (${c.language}).`;
 
-    cards.style.display = "none"; // ✅ hide grid on country pages
+    cards.style.display = "none"; // hide home cards on country pages
 
     buildSidebarCountries(c.code);
     buildCountryContent(c);
     applyFilter(filter.value);
 
     $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
+    renderEmoji();
   }
 
   function buildCountryContent(c){
@@ -267,7 +274,7 @@
     content.innerHTML = `
       <section class="contentSection">
         <h2>Local names & search terms</h2>
-        <p class="note">Vaihtele hakusanoja (esim. Croatia: “Mumini” ja myös “Moomin”).</p>
+        <p class="note">Vaihtele hakusanoja tarvittaessa (esim. “Moomin” toimii usein monissa maissa).</p>
         <ul>
           ${(c.local_names||[]).map(n=>`<li><span class="meta">Name:</span> ${esc(n)}</li>`).join("")}
           ${(c.search_terms||[]).map(t=>`<li><span class="meta">Search:</span> ${esc(t)}</li>`).join("")}
@@ -298,7 +305,6 @@
 
   function applyFilter(q){
     q = (q || "").trim().toLowerCase();
-    // Only filter country content (home grid stays as-is)
     document.querySelectorAll(".contentSection").forEach(sec=>{
       const t = sec.textContent.toLowerCase();
       sec.style.display = (!q || t.includes(q)) ? "" : "none";
@@ -340,8 +346,13 @@
   const savedTheme = localStorage.getItem("moominTheme");
   if(savedTheme) document.body.setAttribute("data-theme", savedTheme);
 
+  // Default start: Finland (FI), not home
   const code = getCountryFromHash();
-  code ? showCountry(code) : showHome();
+  if (code) {
+    showCountry(code);
+  } else {
+    location.hash = "c=FI";
+  }
 })();
 </script>
 </body>
