@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "Moomin DVDs — Live Marketplace Tracker",
-    "note": "Shareable single-URL hub. Uses live search pages (always current). Optional daily job can generate a lightweight 'picks' JSON.",
+    "note": "Shareable hub using live search pages (always current).",
     "generated": "2026-02-05"
   },
   "countries": [
@@ -10,33 +10,17 @@
       "country": "Finland",
       "flag": "🇫🇮",
       "language": "Finnish",
-      "local_names": [
-        "Muumit",
-        "Muumilaakson tarinoita"
-      ],
-      "search_terms": [
-        "muumit dvd",
-        "muumilaakson tarinoita dvd",
-        "muumi dvd"
-      ],
+      "local_names": ["Muumit", "Muumilaakson tarinoita"],
+      "search_terms": ["muumit dvd", "muumilaakson tarinoita dvd", "muumi dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Tori.fi",
           "note": "Largest Finnish classifieds",
           "search_urls": [
-            {
-              "label": "Tori: muumit dvd",
-              "url": "https://www.tori.fi/recommerce/forsale/search?q=muumit+dvd"
-            },
-            {
-              "label": "Tori: muumilaakson tarinoita dvd",
-              "url": "https://www.tori.fi/recommerce/forsale/search?q=muumilaakson+tarinoita+dvd"
-            },
-            {
-              "label": "Tori: muumi dvd",
-              "url": "https://www.tori.fi/recommerce/forsale/search?q=muumi+dvd"
-            }
+            { "label": "Tori: muumit dvd", "url": "https://www.tori.fi/recommerce/forsale/search?q=muumit+dvd" },
+            { "label": "Tori: muumilaakson tarinoita dvd", "url": "https://www.tori.fi/recommerce/forsale/search?q=muumilaakson+tarinoita+dvd" },
+            { "label": "Tori: muumi dvd", "url": "https://www.tori.fi/recommerce/forsale/search?q=muumi+dvd" }
           ]
         },
         {
@@ -44,14 +28,8 @@
           "name": "Huuto.net",
           "note": "Finnish auctions",
           "search_urls": [
-            {
-              "label": "Huuto: muumit dvd",
-              "url": "https://www.huuto.net/haku?words=muumit+dvd"
-            },
-            {
-              "label": "Huuto: muumilaakson tarinoita dvd",
-              "url": "https://www.huuto.net/haku?words=muumilaakson+tarinoita+dvd"
-            }
+            { "label": "Huuto: muumit dvd", "url": "https://www.huuto.net/haku?words=muumit+dvd" },
+            { "label": "Huuto: muumilaakson tarinoita dvd", "url": "https://www.huuto.net/haku?words=muumilaakson+tarinoita+dvd" }
           ]
         },
         {
@@ -59,28 +37,16 @@
           "name": "Antikvaari.fi",
           "note": "Used shops (often DVDs)",
           "search_urls": [
-            {
-              "label": "Antikvaari: muumit dvd",
-              "url": "https://www.antikvaari.fi/haku?tekija=&nimi=muumit+dvd"
-            },
-            {
-              "label": "Antikvaari: muumilaakson tarinoita",
-              "url": "https://www.antikvaari.fi/haku?tekija=&nimi=muumilaakson+tarinoita"
-            }
+            { "label": "Antikvaari: muumit dvd", "url": "https://www.antikvaari.fi/haku?tekija=&nimi=muumit+dvd" },
+            { "label": "Antikvaari: muumilaakson tarinoita", "url": "https://www.antikvaari.fi/haku?tekija=&nimi=muumilaakson+tarinoita" }
           ]
         },
         {
           "type": "global",
           "name": "eBay",
           "search_urls": [
-            {
-              "label": "eBay: muumilaakson tarinoita dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=muumilaakson+tarinoita+dvd"
-            },
-            {
-              "label": "eBay: muumit dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=muumit+dvd"
-            }
+            { "label": "eBay: muumilaakson tarinoita dvd", "url": "https://www.ebay.com/sch/i.html?_nkw=muumilaakson+tarinoita+dvd" },
+            { "label": "eBay: muumit dvd", "url": "https://www.ebay.com/sch/i.html?_nkw=muumit+dvd" }
           ]
         },
         {
@@ -88,510 +54,338 @@
           "name": "Amazon",
           "note": "Nordic releases often appear on DE/SE",
           "search_urls": [
-            {
-              "label": "Amazon.de: muumit dvd",
-              "url": "https://www.amazon.de/s?k=muumit+dvd"
-            },
-            {
-              "label": "Amazon.se: muumit dvd",
-              "url": "https://www.amazon.se/s?k=muumit+dvd"
-            }
+            { "label": "Amazon.de: muumit dvd", "url": "https://www.amazon.de/s?k=muumit+dvd" },
+            { "label": "Amazon.se: muumit dvd", "url": "https://www.amazon.se/s?k=muumit+dvd" }
           ]
         },
         {
           "type": "global",
           "name": "Vinted",
           "search_urls": [
-            {
-              "label": "Vinted: muumit dvd",
-              "url": "https://www.vinted.fi/catalog?search_text=muumit%20dvd"
-            }
+            { "label": "Vinted: muumit dvd", "url": "https://www.vinted.fi/catalog?search_text=muumit%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "EE",
       "country": "Estonia",
       "flag": "🇪🇪",
       "language": "Estonian",
-      "local_names": [
-        "Muumid",
-        "Muumioru lood"
-      ],
-      "search_terms": [
-        "muumid dvd",
-        "muumioru lood",
-        "muumid rivieral dvd"
-      ],
+      "local_names": ["Muumid", "Muumioru lood"],
+      "search_terms": ["muumid dvd", "muumioru lood", "muumid rivieral dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Osta.ee",
           "search_urls": [
-            {
-              "label": "Osta.ee: muumid dvd",
-              "url": "https://www.osta.ee/otsing.html?q=muumid%20dvd"
-            },
-            {
-              "label": "Osta.ee: muumioru lood",
-              "url": "https://www.osta.ee/otsing.html?q=muumioru%20lood"
-            }
+            { "label": "Osta.ee: muumid dvd", "url": "https://www.osta.ee/otsing.html?q=muumid%20dvd" },
+            { "label": "Osta.ee: muumioru lood", "url": "https://www.osta.ee/otsing.html?q=muumioru%20lood" }
           ]
         },
         {
           "type": "local_classifieds",
           "name": "Soov.ee",
           "search_urls": [
-            {
-              "label": "Soov.ee: muumid dvd",
-              "url": "https://soov.ee/search?query=muumid%20dvd"
-            }
+            { "label": "Soov.ee: muumid dvd", "url": "https://soov.ee/search?query=muumid%20dvd" }
           ]
         },
         {
           "type": "local_classifieds",
           "name": "Okidoki.ee",
           "search_urls": [
-            {
-              "label": "Okidoki: muumid dvd",
-              "url": "https://www.okidoki.ee/buy/all/?query=muumid%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "global",
-          "name": "eBay",
-          "search_urls": [
-            {
-              "label": "eBay: muumid dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=muumid+dvd"
-            }
+            { "label": "Okidoki: muumid dvd", "url": "https://www.okidoki.ee/buy/all/?query=muumid%20dvd" }
           ]
         },
         {
           "type": "global",
           "name": "Vinted",
           "search_urls": [
-            {
-              "label": "Vinted: muumid dvd",
-              "url": "https://www.vinted.ee/catalog?search_text=muumid%20dvd"
-            }
+            { "label": "Vinted: muumid dvd", "url": "https://www.vinted.ee/catalog?search_text=muumid%20dvd" }
           ]
         }
       ]
     },
+
     {
-      "code": "NO",
-      "country": "Norway",
-      "flag": "🇳🇴",
-      "language": "Norwegian",
-      "local_names": [
-        "Mummitrollet",
-        "I Mummidalen",
-        "Moomin"
-      ],
-      "search_terms": [
-        "mummitrollet dvd",
-        "i mummidalen dvd",
-        "mummi dvd",
-        "moomin dvd"
-      ],
+      "code": "LV",
+      "country": "Latvia",
+      "flag": "🇱🇻",
+      "language": "Latvian",
+      "local_names": ["Mūmiji", "Moomin"],
+      "search_terms": ["moomin dvd", "mūmiji dvd", "mumini dvd"],
       "sources": [
         {
           "type": "local_classifieds",
-          "name": "FINN Torget",
+          "name": "ss.com",
+          "note": "Largest classifieds in Latvia",
           "search_urls": [
-            {
-              "label": "FINN: mummitrollet dvd",
-              "url": "https://www.finn.no/recommerce/forsale/search?q=mummitrollet+dvd"
-            },
-            {
-              "label": "FINN: i mummidalen dvd",
-              "url": "https://www.finn.no/recommerce/forsale/search?q=i+mummidalen+dvd"
-            },
-            {
-              "label": "FINN: mummi dvd",
-              "url": "https://www.finn.no/recommerce/forsale/search?q=mummi+dvd"
-            },
-            {
-              "label": "FINN: moomin dvd",
-              "url": "https://www.finn.no/recommerce/forsale/search?q=moomin+dvd"
-            }
+            { "label": "ss.com: moomin dvd", "url": "https://www.ss.com/en/search-result/?q=moomin%20dvd" },
+            { "label": "ss.com: moomin", "url": "https://www.ss.com/en/search-result/?q=moomin" }
           ]
         },
         {
           "type": "global",
           "name": "eBay",
           "search_urls": [
-            {
-              "label": "eBay: mummitrollet dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=mummitrollet+dvd"
-            },
-            {
-              "label": "eBay: moomin dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=moomin+dvd"
-            }
+            { "label": "eBay: moomin dvd", "url": "https://www.ebay.com/sch/i.html?_nkw=moomin+dvd" }
           ]
         }
       ]
     },
+
+    {
+      "code": "LT",
+      "country": "Lithuania",
+      "flag": "🇱🇹",
+      "language": "Lithuanian",
+      "local_names": ["Muminai", "Moomin"],
+      "search_terms": ["muminai dvd", "moomin dvd"],
+      "sources": [
+        {
+          "type": "local_classifieds",
+          "name": "Skelbiu.lt",
+          "note": "Largest classifieds in Lithuania",
+          "search_urls": [
+            { "label": "Skelbiu: muminai dvd", "url": "https://www.skelbiu.lt/skelbimai/?keywords=muminai%20dvd" },
+            { "label": "Skelbiu: moomin dvd", "url": "https://www.skelbiu.lt/skelbimai/?keywords=moomin%20dvd" }
+          ]
+        },
+        {
+          "type": "global",
+          "name": "eBay",
+          "search_urls": [
+            { "label": "eBay: moomin dvd", "url": "https://www.ebay.com/sch/i.html?_nkw=moomin+dvd" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "code": "NO",
+      "country": "Norway",
+      "flag": "🇳🇴",
+      "language": "Norwegian",
+      "local_names": ["Mummitrollet", "I Mummidalen", "Moomin"],
+      "search_terms": ["mummitrollet dvd", "i mummidalen dvd", "mummi dvd", "moomin dvd"],
+      "sources": [
+        {
+          "type": "local_classifieds",
+          "name": "FINN Torget",
+          "search_urls": [
+            { "label": "FINN: mummitrollet dvd", "url": "https://www.finn.no/recommerce/forsale/search?q=mummitrollet+dvd" },
+            { "label": "FINN: i mummidalen dvd", "url": "https://www.finn.no/recommerce/forsale/search?q=i+mummidalen+dvd" },
+            { "label": "FINN: mummi dvd", "url": "https://www.finn.no/recommerce/forsale/search?q=mummi+dvd" },
+            { "label": "FINN: moomin dvd", "url": "https://www.finn.no/recommerce/forsale/search?q=moomin+dvd" }
+          ]
+        }
+      ]
+    },
+
     {
       "code": "SE",
       "country": "Sweden",
       "flag": "🇸🇪",
       "language": "Swedish",
-      "local_names": [
-        "Mumintrollen",
-        "Mumindalen",
-        "Mumin",
-        "Moomin"
-      ],
-      "search_terms": [
-        "mumintrollen dvd",
-        "mumin dvd",
-        "mumindalen dvd",
-        "moomin dvd"
-      ],
+      "local_names": ["Mumintrollen", "Mumindalen", "Mumin", "Moomin"],
+      "search_terms": ["mumintrollen dvd", "mumin dvd", "mumindalen dvd", "moomin dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Blocket",
           "search_urls": [
-            {
-              "label": "Blocket: mumin dvd",
-              "url": "https://www.blocket.se/annonser/hela_sverige/for_forsale?q=mumin%20dvd"
-            },
-            {
-              "label": "Blocket: moomin dvd",
-              "url": "https://www.blocket.se/annonser/hela_sverige/for_forsale?q=moomin%20dvd"
-            }
+            { "label": "Blocket: mumin dvd", "url": "https://www.blocket.se/annonser/hela_sverige/for_forsale?q=mumin%20dvd" },
+            { "label": "Blocket: moomin dvd", "url": "https://www.blocket.se/annonser/hela_sverige/for_forsale?q=moomin%20dvd" }
           ]
         },
         {
           "type": "auction",
           "name": "Tradera",
           "search_urls": [
-            {
-              "label": "Tradera: mumin dvd",
-              "url": "https://www.tradera.com/search?q=mumin%20dvd"
-            },
-            {
-              "label": "Tradera: moomin dvd",
-              "url": "https://www.tradera.com/search?q=moomin%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "online_antiquarian",
-          "name": "Antikvariat.net",
-          "search_urls": [
-            {
-              "label": "Antikvariat: mumin dvd",
-              "url": "https://www.antikvariat.net/sv/search?query=mumin%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "global",
-          "name": "Amazon.se",
-          "search_urls": [
-            {
-              "label": "Amazon.se: mumin dvd",
-              "url": "https://www.amazon.se/s?k=mumin+dvd"
-            }
+            { "label": "Tradera: mumin dvd", "url": "https://www.tradera.com/search?q=mumin%20dvd" },
+            { "label": "Tradera: moomin dvd", "url": "https://www.tradera.com/search?q=moomin%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "FR",
       "country": "France",
       "flag": "🇫🇷",
       "language": "French",
-      "local_names": [
-        "Les Moomins",
-        "Les Moumines",
-        "Moomin"
-      ],
-      "search_terms": [
-        "moomin dvd",
-        "moumine dvd",
-        "les moomins dvd"
-      ],
+      "local_names": ["Les Moomins", "Les Moumines", "Moomin"],
+      "search_terms": ["moomin dvd", "moumine dvd", "les moomins dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Leboncoin",
           "search_urls": [
-            {
-              "label": "Leboncoin: moomin dvd",
-              "url": "https://www.leboncoin.fr/recherche?category=66&text=moomin%20dvd"
-            },
-            {
-              "label": "Leboncoin: moumine dvd",
-              "url": "https://www.leboncoin.fr/recherche?category=66&text=moumine%20dvd"
-            }
+            { "label": "Leboncoin: moomin dvd", "url": "https://www.leboncoin.fr/recherche?category=66&text=moomin%20dvd" },
+            { "label": "Leboncoin: moumine dvd", "url": "https://www.leboncoin.fr/recherche?category=66&text=moumine%20dvd" }
           ]
         },
         {
           "type": "marketplace",
           "name": "Rakuten.fr",
           "search_urls": [
-            {
-              "label": "Rakuten: moomin dvd",
-              "url": "https://fr.shopping.rakuten.com/s/moomin%20dvd"
-            }
+            { "label": "Rakuten: moomin dvd", "url": "https://fr.shopping.rakuten.com/s/moomin%20dvd" }
           ]
         },
         {
           "type": "global",
           "name": "Vinted.fr",
           "search_urls": [
-            {
-              "label": "Vinted: moomin dvd",
-              "url": "https://www.vinted.fr/catalog?search_text=moomin%20dvd"
-            },
-            {
-              "label": "Vinted: moumine dvd",
-              "url": "https://www.vinted.fr/catalog?search_text=moumine%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "global",
-          "name": "eBay.fr",
-          "search_urls": [
-            {
-              "label": "eBay.fr: moomin dvd",
-              "url": "https://www.ebay.fr/sch/i.html?_nkw=moomin+dvd"
-            }
+            { "label": "Vinted: moomin dvd", "url": "https://www.vinted.fr/catalog?search_text=moomin%20dvd" },
+            { "label": "Vinted: moumine dvd", "url": "https://www.vinted.fr/catalog?search_text=moumine%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "NL",
       "country": "Netherlands",
       "flag": "🇳🇱",
       "language": "Dutch",
-      "local_names": [
-        "De Moemins",
-        "Moemins",
-        "Moomin"
-      ],
-      "search_terms": [
-        "moemins dvd",
-        "moomin dvd",
-        "mumin dvd"
-      ],
+      "local_names": ["Moomin", "Moemins", "Mumin"],
+      "search_terms": ["moomin dvd", "moemins dvd", "mumin dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Marktplaats",
           "search_urls": [
-            {
-              "label": "Marktplaats: moomin dvd",
-              "url": "https://www.marktplaats.nl/q/moomin%2Bdvd/"
-            },
-            {
-              "label": "Marktplaats: moemins dvd",
-              "url": "https://www.marktplaats.nl/q/moemins%2Bdvd/"
-            }
+            { "label": "Marktplaats: moomin dvd", "url": "https://www.marktplaats.nl/q/moomin%2Bdvd/" },
+            { "label": "Marktplaats: moemins dvd (fallback)", "url": "https://www.marktplaats.nl/q/moemins%2Bdvd/" }
           ]
         },
         {
           "type": "global",
           "name": "Vinted.nl",
           "search_urls": [
-            {
-              "label": "Vinted: moemins dvd",
-              "url": "https://www.vinted.nl/catalog?search_text=moemins%20dvd"
-            }
+            { "label": "Vinted: moomin dvd", "url": "https://www.vinted.nl/catalog?search_text=moomin%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "DE",
       "country": "Germany",
       "flag": "🇩🇪",
       "language": "German",
-      "local_names": [
-        "Die Mumins",
-        "Mumins",
-        "Moomin"
-      ],
-      "search_terms": [
-        "die mumins dvd",
-        "mumins dvd",
-        "moomin dvd"
-      ],
+      "local_names": ["Die Mumins", "Mumins", "Moomin"],
+      "search_terms": ["die mumins dvd", "mumins dvd", "moomin dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Kleinanzeigen",
           "search_urls": [
-            {
-              "label": "Kleinanzeigen: die mumins dvd",
-              "url": "https://www.kleinanzeigen.de/s-die-mumins-dvd/k0"
-            },
-            {
-              "label": "Kleinanzeigen: moomin dvd",
-              "url": "https://www.kleinanzeigen.de/s-moimin-dvd/k0"
-            }
-          ]
-        },
-        {
-          "type": "online_recommerce",
-          "name": "Medimops",
-          "search_urls": [
-            {
-              "label": "Medimops: die mumins",
-              "url": "https://www.medimops.de/produkte-C0/?searchparam=die%20mumins"
-            }
+            { "label": "Kleinanzeigen: die mumins dvd", "url": "https://www.kleinanzeigen.de/s-die-mumins-dvd/k0" },
+            { "label": "Kleinanzeigen: moomin dvd", "url": "https://www.kleinanzeigen.de/s-moomin-dvd/k0" }
           ]
         },
         {
           "type": "online_recommerce",
           "name": "rebuy",
           "search_urls": [
-            {
-              "label": "rebuy: die mumins dvd",
-              "url": "https://www.rebuy.de/kaufen/suche?query=die%20mumins%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "global",
-          "name": "eBay.de",
-          "search_urls": [
-            {
-              "label": "eBay.de: die mumins dvd",
-              "url": "https://www.ebay.de/sch/i.html?_nkw=die+mumins+dvd"
-            }
+            { "label": "rebuy: die mumins dvd", "url": "https://www.rebuy.de/kaufen/suche?query=die%20mumins%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "PL",
       "country": "Poland",
       "flag": "🇵🇱",
       "language": "Polish",
-      "local_names": [
-        "Muminki",
-        "W Dolinie Muminków",
-        "Moomin"
-      ],
-      "search_terms": [
-        "muminki dvd",
-        "w dolinie muminków dvd",
-        "moomin dvd"
-      ],
+      "local_names": ["Muminki", "W Dolinie Muminków", "Moomin"],
+      "search_terms": ["muminki dvd", "w dolinie muminków dvd", "moomin dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "OLX.pl",
           "search_urls": [
-            {
-              "label": "OLX: muminki dvd",
-              "url": "https://www.olx.pl/q-muminki-dvd/"
-            },
-            {
-              "label": "OLX: moomin dvd",
-              "url": "https://www.olx.pl/q-moomin-dvd/"
-            }
+            { "label": "OLX: muminki dvd", "url": "https://www.olx.pl/q-muminki-dvd/" },
+            { "label": "OLX: moomin dvd", "url": "https://www.olx.pl/q-moomin-dvd/" }
           ]
         },
         {
           "type": "marketplace",
           "name": "Allegro",
           "search_urls": [
-            {
-              "label": "Allegro: muminki dvd",
-              "url": "https://allegro.pl/listing?string=muminki%20dvd"
-            },
-            {
-              "label": "Allegro: moomin dvd",
-              "url": "https://allegro.pl/listing?string=moomin%20dvd"
-            }
-          ]
-        },
-        {
-          "type": "global",
-          "name": "Vinted.pl",
-          "search_urls": [
-            {
-              "label": "Vinted: muminki dvd",
-              "url": "https://www.vinted.pl/catalog?search_text=muminki%20dvd"
-            }
+            { "label": "Allegro: muminki dvd", "url": "https://allegro.pl/listing?string=muminki%20dvd" },
+            { "label": "Allegro: moomin dvd", "url": "https://allegro.pl/listing?string=moomin%20dvd" }
           ]
         }
       ]
     },
+
     {
       "code": "HR",
       "country": "Croatia",
       "flag": "🇭🇷",
       "language": "Croatian",
-      "local_names": [
-        "Mumini",
-        "Moomin"
-      ],
-      "search_terms": [
-        "mumini dvd",
-        "moomin dvd",
-        "mumini crtani dvd",
-        "moomin valley dvd"
-      ],
+      "local_names": ["Mumini", "Moomin"],
+      "search_terms": ["mumini dvd", "moomin dvd", "mumini crtani dvd", "moomin valley dvd"],
       "sources": [
         {
           "type": "local_classifieds",
           "name": "Njuškalo",
-          "note": "Largest Croatian classifieds. Use both Mumini and Moomin.",
+          "note": "Use both Mumini and Moomin.",
           "search_urls": [
-            {
-              "label": "Njuškalo: mumini dvd",
-              "url": "https://www.njuskalo.hr/?ctl=search&keywords=mumini%20dvd"
-            },
-            {
-              "label": "Njuškalo: moomin dvd",
-              "url": "https://www.njuskalo.hr/?ctl=search&keywords=moomin%20dvd"
-            }
+            { "label": "Njuškalo: mumini dvd", "url": "https://www.njuskalo.hr/?ctl=search&keywords=mumini%20dvd" },
+            { "label": "Njuškalo: moomin dvd", "url": "https://www.njuskalo.hr/?ctl=search&keywords=moomin%20dvd" }
           ]
         },
         {
           "type": "global",
-          "name": "eBay (try multiple names)",
-          "note": "Listings may appear on any eBay locale.",
+          "name": "eBay (example)",
           "search_urls": [
-            {
-              "label": "eBay: mumini dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=mumini+dvd"
-            },
-            {
-              "label": "eBay: moomin dvd",
-              "url": "https://www.ebay.com/sch/i.html?_nkw=moomin+dvd"
-            },
-            {
-              "label": "Example item (eBay.ie): Moomin DVD",
-              "url": "https://www.ebay.ie/itm/156834282320"
-            }
+            { "label": "Example item (eBay.ie): Moomin DVD", "url": "https://www.ebay.ie/itm/156834282320" },
+            { "label": "eBay: moomin dvd", "url": "https://www.ebay.com/sch/i.html?_nkw=moomin+dvd" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "code": "JP",
+      "country": "Japan",
+      "flag": "🇯🇵",
+      "language": "Japanese",
+      "local_names": ["ムーミン", "Moomin"],
+      "search_terms": ["ムーミン DVD", "MOOMIN DVD", "ムーミン アニメ DVD"],
+      "sources": [
+        {
+          "type": "marketplace",
+          "name": "Mercari (メルカリ)",
+          "note": "Very common for used media in Japan",
+          "search_urls": [
+            { "label": "メルカリ: ムーミン DVD", "url": "https://jp.mercari.com/search?keyword=%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3%20DVD" }
+          ]
+        },
+        {
+          "type": "auction",
+          "name": "Yahoo! Auctions (ヤフオク)",
+          "search_urls": [
+            { "label": "ヤフオク: ムーミン DVD", "url": "https://auctions.yahoo.co.jp/search/search?p=%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3%20DVD" }
+          ]
+        },
+        {
+          "type": "marketplace",
+          "name": "Rakuten",
+          "search_urls": [
+            { "label": "楽天: ムーミン DVD", "url": "https://search.rakuten.co.jp/search/mall/%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3%20DVD/" }
           ]
         },
         {
           "type": "global",
-          "name": "Vinted.hr",
+          "name": "Amazon.co.jp",
           "search_urls": [
-            {
-              "label": "Vinted: moomin dvd",
-              "url": "https://www.vinted.hr/catalog?search_text=moomin%20dvd"
-            },
-            {
-              "label": "Vinted: mumini dvd",
-              "url": "https://www.vinted.hr/catalog?search_text=mumini%20dvd"
-            }
+            { "label": "Amazon.jp: ムーミン DVD", "url": "https://www.amazon.co.jp/s?k=%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3+DVD" }
           ]
         }
       ]
