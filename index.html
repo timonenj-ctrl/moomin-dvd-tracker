@@ -130,11 +130,12 @@
       </div>
 
       <div class="controls">
-        <button class="btn" id="homeBtn" title="Back to country picker">🏠 Home</button>
+        <button class="btn" id="homeBtn" title="Back to home">🏠 Home</button>
         <button class="btn" id="themeBtn" title="Toggle theme">🌓</button>
         <button class="btn" id="copyLinkBtn" title="Copy link">🔗</button>
       </div>
 
+      <!-- Search is useful on country pages; harmless on home too -->
       <div class="search" id="searchWrap">
         <input id="filter" type="search" placeholder="Suodata… (esim. 'Blocket', 'Tradera', 'mumin dvd')" />
         <div style="margin-top:8px;color:var(--muted);font-size:12px">
@@ -142,19 +143,18 @@
         </div>
       </div>
 
+      <!-- ✅ Countries always visible in sidebar -->
       <nav class="nav" id="nav"></nav>
     </aside>
 
     <main class="main">
-      <h1 class="pageTitle"><span id="flag">🌍</span> <span id="pageTitle">Moomin DVDs — Country picker</span></h1>
-      <p class="subtitle" id="subtitle">Valitse maa. Maan sivulla näkyy vain sen maan linkit ja hakusanat.</p>
+      <h1 class="pageTitle"><span id="flag">🌍</span> <span id="pageTitle">Moomin DVDs — Home</span></h1>
+      <p class="subtitle" id="subtitle">Valitse maa sivupalkista tai korteista.</p>
 
-      <!-- ✅ Näkyy vain etusivulla -->
+      <!-- Optional: home-only grid -->
       <div class="grid" id="countryCards"></div>
 
-      <!-- ✅ Näkyy vain maa-sivulla -->
       <div id="content"></div>
-
       <div class="footer" id="footer"></div>
     </main>
   </div>
@@ -166,9 +166,20 @@
   const content = $("#content");
   const filter = $("#filter");
   const cards = $("#countryCards");
-  const searchWrap = $("#searchWrap");
 
   function esc(s){return (s??"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+  // Nice labels instead of raw keys
+  function typeLabel(type){
+    return ({
+      local_classifieds: "Local classifieds",
+      auction: "Auctions",
+      online_antiquarian: "Antikvarit / used shops",
+      online_recommerce: "Recommerce (used stock)",
+      marketplace: "Marketplace",
+      global: "Global"
+    })[type] || type;
+  }
 
   const res = await fetch("./data/sources.json");
   const DATA = await res.json();
@@ -178,42 +189,30 @@
     return m ? m[1] : null;
   }
 
-  function showHome(){
-    $("#flag").textContent = "🌍";
-    $("#pageTitle").textContent = "Moomin DVDs — Country picker";
-    $("#subtitle").textContent = "Valitse maa. Maan sivulla näkyy vain sen maan linkit ja hakusanat.";
-    content.innerHTML = "";
-    cards.style.display = "";
-    searchWrap.style.display = "none"; // ✅ ei tarvita etusivulla
-    buildHomeNav();
-    buildCards();
-    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
+  function buildSidebarCountries(activeCode){
+    nav.innerHTML = `
+      <div class="section">Countries</div>
+      ${DATA.countries.map(c=>`
+        <a href="#c=${c.code}" data-c="${c.code}">
+          <span>${c.flag || "🏳️"}</span>
+          <span>${esc(c.code)} ${esc(c.country)}</span>
+          <span class="pill">${c.sources?.reduce((n,s)=>n+((s.search_urls||[]).length),0) || 0}</span>
+        </a>
+      `).join("")}
+    `;
+
+    nav.querySelectorAll("a[data-c]").forEach(a=>{
+      const isActive = a.getAttribute("data-c") === activeCode;
+      a.style.opacity = isActive ? "1" : "0.78";
+      a.style.fontWeight = isActive ? "750" : "450";
+    });
   }
 
-  function showCountry(code){
-    const c = DATA.countries.find(x=>x.code===code);
-    if(!c){ showHome(); return; }
-
-    $("#flag").textContent = c.flag || "🏳️";
-    $("#pageTitle").textContent = `${c.code} Moomin DVDs — ${c.country}`;
-    $("#subtitle").textContent = `Live search hub for ${c.country} (${c.language}).`;
-
-    // ✅ Tämä on se tärkein: piilota lista kaikista maista maa-sivulla
-    cards.style.display = "none";
-    searchWrap.style.display = ""; // ✅ suodatus hyödyllinen vain maa-sivulla
-
-    buildCountryNav(c);
-    buildCountryContent(c);
-    applyFilter(filter.value);
-
-    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
-  }
-
-  function buildCards(){
+  function buildHomeCards(){
     cards.innerHTML = DATA.countries.map(c => `
       <div class="card">
         <h3>${c.flag || "🏳️"} ${esc(c.code)} ${esc(c.country)}</h3>
-        <p class="small">${esc(c.language)}</p>
+        <p class="small">${esc(c.language || "")}</p>
         <div class="tagRow">
           ${(c.local_names||[]).slice(0,3).map(n=>`<span class="tag">${esc(n)}</span>`).join("")}
         </div>
@@ -225,31 +224,38 @@
 
     cards.querySelectorAll("button[data-open]").forEach(b=>{
       b.addEventListener("click", ()=>{
-        const code = b.getAttribute("data-open");
-        location.hash = `c=${code}`;
+        location.hash = `c=${b.getAttribute("data-open")}`;
       });
     });
   }
 
-  function buildHomeNav(){
-    nav.innerHTML = `
-      <div class="section">Countries</div>
-      ${DATA.countries.map(c=>`
-        <a href="#c=${c.code}">
-          <span>${c.flag || "🏳️"}</span>
-          <span>${esc(c.country)}</span>
-          <span class="pill">${c.sources?.reduce((n,s)=>n+((s.search_urls||[]).length),0) || 0}</span>
-        </a>
-      `).join("")}
-    `;
+  function showHome(){
+    $("#flag").textContent = "🌍";
+    $("#pageTitle").textContent = "Moomin DVDs — Home";
+    $("#subtitle").textContent = "Valitse maa sivupalkista tai korteista.";
+    content.innerHTML = "";
+    cards.style.display = ""; // home shows grid
+    buildSidebarCountries(null);
+    buildHomeCards();
+    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
+    applyFilter(filter.value); // optional
   }
 
-  function buildCountryNav(c){
-    nav.innerHTML = `
-      <div class="section">${esc(c.country)}</div>
-      <a href="#sec=names"><span>▸</span><span>Names & terms</span></a>
-      <a href="#sec=links"><span>▸</span><span>Live search links</span></a>
-    `;
+  function showCountry(code){
+    const c = DATA.countries.find(x=>x.code===code);
+    if(!c){ showHome(); return; }
+
+    $("#flag").textContent = c.flag || "🏳️";
+    $("#pageTitle").textContent = `${esc(c.code)} Moomin DVDs — ${esc(c.country)}`;
+    $("#subtitle").textContent = `Live search hub for ${c.country} (${c.language}).`;
+
+    cards.style.display = "none"; // ✅ hide grid on country pages
+
+    buildSidebarCountries(c.code);
+    buildCountryContent(c);
+    applyFilter(filter.value);
+
+    $("#footer").textContent = `Data: data/sources.json • Generated: ${DATA.meta?.generated || ""}`;
   }
 
   function buildCountryContent(c){
@@ -259,8 +265,8 @@
     });
 
     content.innerHTML = `
-      <section class="contentSection" id="sec-names">
-        <h2 id="names">Local names & search terms</h2>
+      <section class="contentSection">
+        <h2>Local names & search terms</h2>
         <p class="note">Vaihtele hakusanoja (esim. Croatia: “Mumini” ja myös “Moomin”).</p>
         <ul>
           ${(c.local_names||[]).map(n=>`<li><span class="meta">Name:</span> ${esc(n)}</li>`).join("")}
@@ -268,11 +274,12 @@
         </ul>
       </section>
 
-      <section class="contentSection" id="sec-links">
-        <h2 id="links">Live search links (myynnissä nyt)</h2>
+      <section class="contentSection">
+        <h2>Live search links (myynnissä nyt)</h2>
         <p class="note">Hakusivut pysyvät ajantasaisina pitkään.</p>
+
         ${Object.keys(grouped).map(type=>`
-          <h2 style="margin-top:18px">${esc(type)}</h2>
+          <h2 style="margin-top:18px">${esc(typeLabel(type))}</h2>
           ${(grouped[type]||[]).map(src=>`
             <div class="card">
               <h3>${esc(src.name)}</h3>
@@ -291,6 +298,7 @@
 
   function applyFilter(q){
     q = (q || "").trim().toLowerCase();
+    // Only filter country content (home grid stays as-is)
     document.querySelectorAll(".contentSection").forEach(sec=>{
       const t = sec.textContent.toLowerCase();
       sec.style.display = (!q || t.includes(q)) ? "" : "none";
