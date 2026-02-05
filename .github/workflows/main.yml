@@ -1,0 +1,22 @@
+name: Daily refresh (optional)
+on:
+  schedule:
+    - cron: "0 4 * * *"   # daily 04:00 UTC
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scripts/update_live_picks.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/live-picks.json
+          git commit -m "Daily refresh live picks" || exit 0
+          git push
